@@ -111,7 +111,13 @@ population |>
   # flip coordinates
   coord_flip() +
   # facet by year
-  facet_wrap(~year)
+  facet_wrap(~year) + 
+  # add labels
+  labs(
+    title = "States's population (2021 and 2021)",
+    x = "State",
+    y = "Population"
+  )
 ```
 
 8.  The following URL:
