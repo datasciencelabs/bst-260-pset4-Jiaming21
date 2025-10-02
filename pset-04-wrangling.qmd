@@ -252,7 +252,7 @@ deaths <- request(deaths_url) |>
 
 ```{r}
 # Your code here
-deaths |> # already filter out the "United States" in last 
+deaths |> # already filter out the "United States" and "New York City" in last question
   group_by(state) |> 
   summarise(total_deaths = sum(deaths, na.rm = TRUE)) |> 
   arrange(desc(total_deaths)) |> 
