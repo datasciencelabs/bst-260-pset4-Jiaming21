@@ -125,7 +125,7 @@ population |>
 url <- "https://github.com/datasciencelabs/2025/raw/refs/heads/main/data/regions.json"
 ```
 
-points to a JSON file that lists the states in the 10 Public Health Service (PHS) defined by CDC. We want to add these regions to the `population` dataset. To facilitate this create a data frame called `regions` that has two columns `state_name`, `region`, `region_name`. One of the regions has a long name. Change it to something shorter.
+points to a JSON file that lists the states in the 10 Public Health Service (PHS) defined by CDC. We want to add these regions to the `population` dataset. To facilitate this create a data frame called `regions` that has three columns `state_name`, `region`, `region_name`. One of the regions has a long name. Change it to something shorter.
 
 ```{r}
 #| message: false
@@ -141,10 +141,9 @@ regions <- map_df(regions_dat, function(x) {
     state_name = x$states,
     region = x$region,
     region_name = ifelse(x$region_name != "New York and New Jersey, Puerto Rico, Virgin Islands", x$region_name, "NY, NJ, PR, VI")
-  )
-})
-
-head(regions)
+    )
+  }) |>
+  filter(state_name %in% c(state.name, "District of Columbia", "Puerto Rico"))
 ```
 
 9.  Add a region and region name columns to the `population` data frame.
@@ -167,7 +166,7 @@ table(cases_raw$state) # should be (over 52(weeks)*3(year))*60(states) in totol
 
 We see exactly 1,000 rows. We should be seeing over $52 \times 3$ rows per state.
 
-**Answer:** No, not all data is there, we only see 1000 rows. This is due to CDC has a default limit, stopping us from requesting more rows.
+**Answer:** No, not all the data is there; we only see 1,000 rows. This is because the CDC has a default limit, which prevents us from retrieving more rows.
 
 11. The reason you see exactly 1,000 rows is because CDC has a default limit. You can change this limit by adding `$limit=10000000000` to the request. Rewrite the previous request to ensure that you receive all the data. Then wrangle the resulting data frame to produce a data frame with columns `state`, `date` (should be the end date) and `cases`. Make sure the cases are numeric and the dates are in `Date` ISO-8601 format.
 
