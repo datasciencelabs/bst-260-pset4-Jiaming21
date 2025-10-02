@@ -20,7 +20,7 @@ Write a first line of code for your problem set that defines `census_key` by run
 source("census-key.R")
 ```
 
-2.  The [US Census API User Guide](https://www.census.gov/content/dam/Census/data/developers/api-user-guide/api-user-guide.pdf) provides details on how to leverage this valuable resource. We are interested in vintage population estimates for years 2021 and 2022. From the documentation we find that the *endpoint* is:
+2.  The [US Census API User Guide](https://www.census.gov/content/dam/Census/data/developers/api-user-guide/api-user-guide.pdf) provides details on how to leverage this valuable resource. We are interested in vintage population estimates for years 2020 and 2021. From the documentation we find that the *endpoint* is:
 
 ```{r}
 url <- "https://api.census.gov/data/2021/pep/population"
@@ -42,7 +42,6 @@ request <- request(url) |>
   req_url_query(get = I("POP_2020,POP_2021,NAME"),
                 `for` = "state:*",
                 key = census_key)
-print(request$url)
 ```
 
 3.  Make a request to the US Census API using the `request` object. Save the response to and object named `response`. Check the response status of your request and make sure it was successful. You can learn about *status codes* [here](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
@@ -114,7 +113,7 @@ population |>
   facet_wrap(~year) + 
   # add labels
   labs(
-    title = "States's population (2021 and 2021)",
+    title = "States's population (2020 and 2021)",
     x = "State",
     y = "Population"
   )
